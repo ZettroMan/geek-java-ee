@@ -13,9 +13,9 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageHeader", "<p>Main  <b>Catalog</b>  Product  Cart  Order</p>");
+        req.setAttribute("activePageNumber", 1);
         getServletContext().getRequestDispatcher("/page_header").include(req, resp);
-        resp.getWriter().println("<h1>Catalog page<h1>");
+        resp.getWriter().println("<h1>Каталог товаров<h1>");
 
     }
 }

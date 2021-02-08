@@ -13,7 +13,7 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("pageHeader", "<p>Главная Каталог Продукт <b>Корзина</b> Заказ</p>");
+        req.setAttribute("activePageNumber", 3);
         getServletContext().getRequestDispatcher("/page_header").include(req, resp);
         resp.getWriter().println("<h1>Корзина<h1>");
     }
