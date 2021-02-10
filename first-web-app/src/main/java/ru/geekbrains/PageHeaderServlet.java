@@ -24,23 +24,25 @@ public class PageHeaderServlet extends HttpServlet {
     private static MenuItem[] menu = new MenuItem[5];
 
     static {
-        menu[0] = new MenuItem("first-web-app/main", "Главная");
-        menu[1] = new MenuItem("first-web-app/catalog", "Каталог");
-        menu[2] = new MenuItem("first-web-app/product", "Продукт");
-        menu[3] = new MenuItem("first-web-app/cart", "Корзина");
-        menu[4] = new MenuItem("first-web-app/order", "Заказ");
+        menu[0] = new MenuItem("/main", "Главная");
+        menu[1] = new MenuItem("/catalog", "Каталог");
+        menu[2] = new MenuItem("/product", "Продукт");
+        menu[3] = new MenuItem("/cart", "Корзина");
+        menu[4] = new MenuItem("/order", "Заказ");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int activePageNumber = (Integer) req.getAttribute("activePageNumber");
         PrintWriter writer = resp.getWriter();
+        String contextPath = getServletContext().getContextPath();
+
         writer.println("<div style=\"display:flex; justify-content:space-around; font-size:18px;" +
                 " height:24px; align-items:center; padding-top:16px; width:50%\">");
 
         for (int i = 0; i < menu.length; i++) {
             if(i != activePageNumber) {
-                writer.printf("<a href=\"../%s\">%s</a>", menu[i].path, menu[i].value);
+                writer.printf("<a href=\"%s%s\">%s</a>", contextPath, menu[i].path, menu[i].value);
             } else {
                 writer.printf("<b>%s</b>", menu[i].value);
             }
