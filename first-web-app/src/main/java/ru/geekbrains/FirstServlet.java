@@ -13,20 +13,24 @@ public class FirstServlet implements Servlet {
     private ServletConfig config;
 
     @Override
-    public void init(ServletConfig servletConfig) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         logger.info("FirstServlet is initialized");
-        config = servletConfig;
+        this.config = config;
     }
 
     @Override
     public ServletConfig getServletConfig() {
-        return config;
+        return this.config;
     }
 
     @Override
-    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-        logger.info("New request to FirstServlet received!");
-        servletResponse.getWriter().println("<h1>Hello from servlet!!!</h1>");
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        logger.info("New request to FirstServlet");
+
+        req.setAttribute("pageHeader", "Привет от сервлета!!!");
+        config.getServletContext().getRequestDispatcher("/page_header").forward(req, res);
+
+        res.getWriter().println("<h1>Hello from servlet!!!</h1>");
     }
 
     @Override
