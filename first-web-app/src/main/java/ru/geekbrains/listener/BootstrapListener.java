@@ -1,7 +1,6 @@
 package ru.geekbrains.listener;
 
-import ru.geekbrains.persist.Product;
-import ru.geekbrains.persist.ProductRepository;
+import ru.geekbrains.persist.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -14,6 +13,8 @@ public class BootstrapListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ProductRepository productRepository = new ProductRepository();
+        CategoryRepository categoryRepository = new CategoryRepository();
+        UserRepository userRepository = new UserRepository();
 
         productRepository.saveOrUpdate(new Product(null, "Product  1",
                 "Description of product 1", new BigDecimal(100)));
@@ -22,6 +23,18 @@ public class BootstrapListener implements ServletContextListener {
         productRepository.saveOrUpdate(new Product(null, "Product  3",
                 "Description of product 3", new BigDecimal(200)));
 
+        categoryRepository.saveOrUpdate(new Category(null, "Category 1"));
+        categoryRepository.saveOrUpdate(new Category(null, "Category 2"));
+        categoryRepository.saveOrUpdate(new Category(null, "Category 3"));
+        categoryRepository.saveOrUpdate(new Category(null, "Category 4"));
+
+        userRepository.saveOrUpdate(new User(null, "Koz'ma", "Prutkoff"));
+        userRepository.saveOrUpdate(new User(null, "Max", "Frei"));
+        userRepository.saveOrUpdate(new User(null, "Emil", "Azhar"));
+        userRepository.saveOrUpdate(new User(null, "Boris", "Akunin"));
+
         sce.getServletContext().setAttribute("productRepository", productRepository);
+        sce.getServletContext().setAttribute("categoryRepository", categoryRepository);
+        sce.getServletContext().setAttribute("userRepository", userRepository);
     }
 }
