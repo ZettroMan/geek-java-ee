@@ -37,7 +37,8 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-primary" href="product_form.jsp">Add Product</a>
+            <c:url value="/user/add" var="userAddUrl"/>
+            <a class="btn btn-primary" href="${userAddUrl}">Add User</a>
         </div>
 
         <div class="col-12">
@@ -66,8 +67,11 @@
                             <c:url value="/user/edit" var="userEditUrl">
                                 <c:param name="id" value="${user.id}"/>
                             </c:url>
+                             <c:url value="/user/delete" var="userDeleteUrl">
+                                <c:param name="id" value="${user.id}"/>
+                            </c:url>
                             <a class="btn btn-success" href="${userEditUrl}"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
+                            <a class="btn btn-danger" href="${userDeleteUrl}"><i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 </c:forEach>

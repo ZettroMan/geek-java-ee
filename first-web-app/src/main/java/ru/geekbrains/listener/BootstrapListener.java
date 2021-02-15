@@ -28,7 +28,7 @@ public class BootstrapListener implements ServletContextListener {
         categoryRepository.saveOrUpdate(new Category(null, "Category 3"));
         categoryRepository.saveOrUpdate(new Category(null, "Category 4"));
 
-        userRepository.saveOrUpdate(new User(null, "Koz'ma", "Prutkoff"));
+        userRepository.saveOrUpdate(new User(null, "Козьма", "Прутков"));
         userRepository.saveOrUpdate(new User(null, "Max", "Frei"));
         userRepository.saveOrUpdate(new User(null, "Emil", "Azhar"));
         userRepository.saveOrUpdate(new User(null, "Boris", "Akunin"));

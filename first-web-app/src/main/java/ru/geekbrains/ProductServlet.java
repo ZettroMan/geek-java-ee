@@ -30,18 +30,28 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long id = 0L;
         logger.info(req.getPathInfo());
         if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
             req.setAttribute("products", productRepository.findAll());
             getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
-        } else if (req.getPathInfo().equals("/edit")) {
-            long id;
+        }
+        if(req.getPathInfo().equals("/add")) {
+            Product product = new Product();
+            productRepository.saveOrUpdate(product);
+            req.setAttribute("product", product);
+            getServletContext().getRequestDispatcher("/WEB-INF/product_form.jsp").forward(req, resp);
+        }
+
+        if (req.getPathInfo().equals("/edit") || req.getPathInfo().equals("/delete")) {
             try {
                 id = Long.parseLong(req.getParameter("id"));
             } catch (NumberFormatException ex) {
                 resp.setStatus(400);
                 return;
             }
+        }
+        if (req.getPathInfo().equals("/edit")) {
             Product product = productRepository.findById(id);
             if (product == null) {
                 resp.setStatus(404);
@@ -50,7 +60,8 @@ public class ProductServlet extends HttpServlet {
             req.setAttribute("product", product);
             getServletContext().getRequestDispatcher("/WEB-INF/product_form.jsp").forward(req, resp);
         } else if (req.getPathInfo().equals("/delete")) {
-            // TODO delete product
+            productRepository.deleteById(id);
+            resp.sendRedirect(getServletContext().getContextPath() + "/product");
         }
     }
 

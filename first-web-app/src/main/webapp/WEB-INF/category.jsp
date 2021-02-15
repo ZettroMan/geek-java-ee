@@ -37,7 +37,8 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-primary" href="product_form.jsp">Add Product</a>
+            <c:url value="/category/add" var="categoryAddUrl"/>
+            <a class="btn btn-primary" href="${categoryAddUrl}">Add Category</a>
         </div>
 
         <div class="col-12">
@@ -62,8 +63,11 @@
                             <c:url value="/category/edit" var="categoryEditUrl">
                                 <c:param name="id" value="${category.id}"/>
                             </c:url>
+                            <c:url value="/category/delete" var="categoryDeleteUrl">
+                                <c:param name="id" value="${category.id}"/>
+                            </c:url>
                             <a class="btn btn-success" href="${categoryEditUrl}"><i class="fas fa-edit"></i></a>
-                            <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
+                            <a class="btn btn-danger" href="${categoryDeleteUrl}"><i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 </c:forEach>

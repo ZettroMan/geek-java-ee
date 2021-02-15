@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
-import ru.geekbrains.persist.Product;
-import ru.geekbrains.persist.ProductRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 @WebServlet(urlPatterns = "/category/*")
 public class CategoryServlet extends HttpServlet {
@@ -32,18 +29,28 @@ public class CategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long id = 0L;
         logger.info(req.getPathInfo());
         if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
-            req.setAttribute("category", categoryRepository.findAll());
+            req.setAttribute("categories", categoryRepository.findAll());
             getServletContext().getRequestDispatcher("/WEB-INF/category.jsp").forward(req, resp);
-        } else if (req.getPathInfo().equals("/edit")) {
-            long id;
+        }
+        if(req.getPathInfo().equals("/add")) {
+            Category category = new Category();
+            categoryRepository.saveOrUpdate(category);
+            req.setAttribute("category", category);
+            getServletContext().getRequestDispatcher("/WEB-INF/category_form.jsp").forward(req, resp);
+        }
+
+        if (req.getPathInfo().equals("/edit") || req.getPathInfo().equals("/delete")) {
             try {
                 id = Long.parseLong(req.getParameter("id"));
             } catch (NumberFormatException ex) {
                 resp.setStatus(400);
                 return;
             }
+        }
+        if (req.getPathInfo().equals("/edit")) {
             Category category = categoryRepository.findById(id);
             if (category == null) {
                 resp.setStatus(404);
@@ -52,7 +59,8 @@ public class CategoryServlet extends HttpServlet {
             req.setAttribute("category", category);
             getServletContext().getRequestDispatcher("/WEB-INF/category_form.jsp").forward(req, resp);
         } else if (req.getPathInfo().equals("/delete")) {
-            // TODO delete category
+            categoryRepository.deleteById(id);
+            resp.sendRedirect(getServletContext().getContextPath() + "/category");
         }
     }
 
@@ -69,5 +77,4 @@ public class CategoryServlet extends HttpServlet {
         categoryRepository.saveOrUpdate(category);
         resp.sendRedirect(getServletContext().getContextPath() + "/category");
     }
-
 }

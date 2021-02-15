@@ -2,10 +2,7 @@ package ru.geekbrains;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.geekbrains.persist.Product;
-import ru.geekbrains.persist.ProductRepository;
-import ru.geekbrains.persist.User;
-import ru.geekbrains.persist.UserRepository;
+import ru.geekbrains.persist.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,19 +29,29 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long id = 0L;
         logger.info(req.getPathInfo());
         if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
             req.setAttribute("users", userRepository.findAll());
             getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(req, resp);
-        } else if (req.getPathInfo().equals("/edit")) {
-            long id;
+        }
+        if(req.getPathInfo().equals("/add")) {
+            User user = new User();
+            userRepository.saveOrUpdate(user);
+            req.setAttribute("user", user);
+            getServletContext().getRequestDispatcher("/WEB-INF/user_form.jsp").forward(req, resp);
+        }
+
+        if (req.getPathInfo().equals("/edit") || req.getPathInfo().equals("/delete")) {
             try {
                 id = Long.parseLong(req.getParameter("id"));
             } catch (NumberFormatException ex) {
                 resp.setStatus(400);
                 return;
             }
-            User user = userRepository.findById(id);
+        }
+        if (req.getPathInfo().equals("/edit")) {
+                User user = userRepository.findById(id);
             if (user == null) {
                 resp.setStatus(404);
                 return;
@@ -52,7 +59,8 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("user", user);
             getServletContext().getRequestDispatcher("/WEB-INF/user_form.jsp").forward(req, resp);
         } else if (req.getPathInfo().equals("/delete")) {
-            // TODO delete user
+            userRepository.deleteById(id);
+            resp.sendRedirect(getServletContext().getContextPath() + "/user");
         }
     }
 
@@ -65,7 +73,11 @@ public class UserServlet extends HttpServlet {
             resp.setStatus(400);
             return;
         }
-        User user = new User(id, req.getParameter("name"), req.getParameter("surname"));
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        logger.info(name);
+        logger.info(surname);
+        User user = new User(id, name, surname);
         userRepository.saveOrUpdate(user);
         resp.sendRedirect(getServletContext().getContextPath() + "/user");
     }
