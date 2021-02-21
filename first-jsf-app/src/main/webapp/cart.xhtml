@@ -28,10 +28,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="product.xhtml">Product list</a>
                     </li>
-                    <li class="nav-item" id="cartLink">
+                    <li class="nav-item active">
                         <h:link value="Cart (#{cartController.size})" outcome="cart.xhtml" styleClass="nav-link"/>
                         <!--                    <a class="nav-link" href="cart.xhtml">Cart</a>-->
                     </li>
@@ -41,16 +41,11 @@
     </h:form>
 
     <div class="container">
+        <h3>Корзина</h3>
         <div class="row py-2">
-            <h:form id="productForm">
+            <h:form id="cartForm">
                 <div class="col-12">
-                    <h:commandButton value="Add Product" styleClass="btn btn-primary"
-                                     action="#{productController.createProduct()}"/>
-                </div>
-
-
-                <div class="col-12">
-                    <h:dataTable value="#{productController.allProducts}" var="product" styleClass="table table-bordered my-2">
+                    <h:dataTable value="#{cartController.productsInCart}" var="product" styleClass="table table-bordered my-2">
                         <h:column>
                             <f:facet name="header">Id</f:facet>
                             #{product.id}
@@ -69,15 +64,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
-                            <h:commandButton value="Edit" styleClass="btn btn-success"
-                                             action="#{productController.editProduct(product)}"/>
-                            <h:commandButton value="Delete" styleClass="btn btn-danger"
-                                             action="#{productController.deleteProduct(product)}">
-                                <f:ajax event="click" render="productForm"/>
-                            </h:commandButton>
-                            <h:commandButton value="Add to cart" styleClass="btn btn-success"
-                                             action="#{cartController.addToCart(product)}">
-                                <f:ajax event="click" render="navForm"/>
+                            <h:commandButton value="Remove from cart" styleClass="btn btn-danger"
+                                             action="#{cartController.removeFromCart(product)}">
+                                <f:ajax event="click" render="cartForm navForm"/>
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>
