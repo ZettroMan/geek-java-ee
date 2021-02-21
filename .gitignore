@@ -1,2 +1,6 @@
-/.idea/
-/first-web-app/target/
+target/
+.idea
+*.iws
+*.iml
+*.ipr
+
