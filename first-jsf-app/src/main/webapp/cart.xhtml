@@ -29,11 +29,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="product.xhtml">Product list</a>
+                        <a class="nav-link" href="product.xhtml">Products</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
+                        <a class="nav-link" href="category.xhtml">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user.xhtml">Users</a>
+                    </li>
+                    <li class="nav-item active" id="cartLink">
                         <h:link value="Cart (#{cartController.size})" outcome="cart.xhtml" styleClass="nav-link"/>
-                        <!--                    <a class="nav-link" href="cart.xhtml">Cart</a>-->
                     </li>
                 </ul>
             </div>
@@ -55,12 +60,12 @@
                             #{product.name}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Price</f:facet>
-                            #{product.price}
-                        </h:column>
-                        <h:column>
                             <f:facet name="header">Description</f:facet>
                             #{product.description}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Price</f:facet>
+                            #{product.price}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
