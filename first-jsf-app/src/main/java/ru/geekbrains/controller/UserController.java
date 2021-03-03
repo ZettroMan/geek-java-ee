@@ -40,7 +40,7 @@ public class UserController implements Serializable {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return users;
     }
 
     public String editUser(User user) {

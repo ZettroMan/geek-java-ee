@@ -3,6 +3,7 @@ package ru.geekbrains.controller;
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
@@ -20,6 +21,11 @@ public class CategoryController implements Serializable {
     private Category category;
 
     private List<Category> categories;
+
+    @PostConstruct
+    public void init() {
+        categories = categoryRepository.findAll();
+    }
 
     public void preloadData(ComponentSystemEvent componentSystemEvent) {
         categories = categoryRepository.findAll();
@@ -39,7 +45,7 @@ public class CategoryController implements Serializable {
     }
 
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categories;
     }
 
     public String editCategory(Category category) {
