@@ -1,5 +1,7 @@
 package ru.geekbrains.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.geekbrains.dto.ProductDto;
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.CategoryRepository;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class ProductServiceImpl implements ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @EJB
     private ProductRepository productRepository;
@@ -52,6 +56,6 @@ public class ProductServiceImpl implements ProductService {
     @TransactionAttribute
     @Override
     public void deleteById(Long id) {
-
+        productRepository.deleteById(id);
     }
 }

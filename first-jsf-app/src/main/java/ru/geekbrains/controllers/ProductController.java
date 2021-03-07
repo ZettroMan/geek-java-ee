@@ -1,7 +1,7 @@
 package ru.geekbrains.controllers;
 
-import ru.geekbrains.persist.Product;
-import ru.geekbrains.persist.ProductRepository;
+import ru.geekbrains.dto.ProductDto;
+import ru.geekbrains.services.ProductService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -15,44 +15,44 @@ import java.util.List;
 public class ProductController implements Serializable {
 
     @EJB
-    private ProductRepository productRepository;
+    private ProductService productService;
 
-    private Product product;
+    private ProductDto product;
 
-    private List<Product> products;
+    private List<ProductDto> products;
 
     public void preloadData(ComponentSystemEvent componentSystemEvent) {
-        products = productRepository.findAll();
+        products = productService.findAll();
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public String createProduct() {
-        this.product = new Product();
-        return "/product_form.xhtml?faces-redirect=true";
-    }
-
-    public List<Product> getAllProducts() {
+    public List<ProductDto> getAllProducts() {
         return products;
     }
 
-    public String editProduct(Product product) {
-        this.product = product;
+    public ProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDto productDto) {
+        this.product = productDto;
+    }
+
+    public String createProduct() {
+        this.product = new ProductDto();
         return "/product_form.xhtml?faces-redirect=true";
     }
 
-    public void deleteProduct(Product product) {
-        productRepository.deleteById(product.getId());
+    public String editProduct(ProductDto productDto) {
+        this.product = productDto;
+        return "/product_form.xhtml?faces-redirect=true";
+    }
+
+    public void deleteProduct(ProductDto productDto) {
+        productService.deleteById(productDto.getId());
     }
 
     public String saveProduct() {
-        productRepository.saveOrUpdate(product);
+        productService.saveOrUpdate(product);
         return "/product.xhtml?faces-redirect=true";
     }
 }
