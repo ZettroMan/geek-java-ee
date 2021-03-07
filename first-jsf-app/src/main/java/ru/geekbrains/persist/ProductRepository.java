@@ -3,15 +3,13 @@ package ru.geekbrains.persist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Named
-@ApplicationScoped
+
+@Stateless
 public class ProductRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductRepository.class);
@@ -31,7 +29,6 @@ public class ProductRepository {
         return entityManager.createNamedQuery("countAllProducts", Long.class).getSingleResult();
     }
 
-    @Transactional
     public void saveOrUpdate(Product product) {
         if (product.getId() == null) {
             entityManager.persist(product);
@@ -39,7 +36,6 @@ public class ProductRepository {
         entityManager.merge(product);
     }
 
-    @Transactional
     public void deleteById(Long id) {
         entityManager.createNamedQuery("deleteProductById").setParameter("id", id).executeUpdate();
     }

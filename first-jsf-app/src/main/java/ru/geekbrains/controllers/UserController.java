@@ -1,4 +1,4 @@
-package ru.geekbrains.controller;
+package ru.geekbrains.controllers;
 
 import ru.geekbrains.persist.User;
 import ru.geekbrains.persist.UserRepository;

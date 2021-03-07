@@ -1,11 +1,11 @@
-package ru.geekbrains.controller;
+package ru.geekbrains.controllers;
 
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @SessionScoped
 public class ProductController implements Serializable {
 
-    @Inject
+    @EJB
     private ProductRepository productRepository;
 
     private Product product;

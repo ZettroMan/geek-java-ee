@@ -3,15 +3,13 @@ package ru.geekbrains.persist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Named
-@ApplicationScoped
+@Stateless
 public class CategoryRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryRepository.class);
@@ -25,6 +23,10 @@ public class CategoryRepository {
 
     public Category findById(Long id) {
         return entityManager.find(Category.class, id);
+    }
+
+    public Category getReference(Long id) {
+        return entityManager.getReference(Category.class, id);
     }
 
     public Long countAll() {
