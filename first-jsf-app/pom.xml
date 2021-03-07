@@ -40,6 +40,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>8.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <version>2.0</version>
@@ -58,12 +64,6 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>10.0.0-RC1</version>
         </dependency>
 
         <dependency>
@@ -122,6 +122,14 @@
                 <version>6.0.1</version>
                 <configuration>
                     <configFiles>src/main/resources/flyway.conf</configFiles>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archiveClasses>true</archiveClasses>
                 </configuration>
             </plugin>
 

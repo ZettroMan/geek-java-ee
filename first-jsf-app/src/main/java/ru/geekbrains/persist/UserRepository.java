@@ -3,44 +3,19 @@ package ru.geekbrains.persist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
 import java.util.List;
 
-@Named
-@ApplicationScoped
+@Stateless
 public class UserRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
     @PersistenceContext(unitName = "ds")
     private EntityManager entityManager;
-
-    @Resource
-    private UserTransaction userTransaction;
-
-    @PostConstruct
-    public void init() throws Exception {
-        if (countAll() == 0) {
-            try {
-                userTransaction.begin();
-                saveOrUpdate(new User(null, "Козьма", "Прутков"));
-                saveOrUpdate(new User(null, "Max", "Frei"));
-                saveOrUpdate(new User(null, "Emil", "Azhar"));
-                saveOrUpdate(new User(null, "Boris", "Akunin"));
-                userTransaction.commit();
-            } catch (Exception e) {
-                logger.error("", e);
-                userTransaction.rollback();
-            }
-        }
-    }
 
     public List<User> findAll() {
         return entityManager.createNamedQuery("findAllUsers", User.class).getResultList();

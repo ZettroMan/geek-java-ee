@@ -2,10 +2,10 @@ package ru.geekbrains.services;
 
 import ru.geekbrains.dto.UserDto;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import java.util.List;
 
-@Remote
+@Local
 public interface UserServiceRemote {
 
     List<UserDto> findAll();

@@ -1,11 +1,11 @@
 package ru.geekbrains.controllers;
 
-import ru.geekbrains.persist.User;
-import ru.geekbrains.persist.UserRepository;
+import ru.geekbrains.dto.UserDto;
+import ru.geekbrains.services.UserService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -14,46 +14,45 @@ import java.util.List;
 @SessionScoped
 public class UserController implements Serializable {
 
-    @Inject
-    private UserRepository userRepository;
+    @EJB
+    private UserService userService;
 
-    private User user;
+    private UserDto user;
 
-    private List<User> users;
+    private List<UserDto> users;
 
     public void preloadData(ComponentSystemEvent componentSystemEvent) {
-        users = userRepository.findAll();
+        users = userService.findAll();
     }
 
-
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserDto userDto) {
+        this.user = userDto;
     }
 
     public String createUser() {
-        this.user = new User();
+        this.user = new UserDto();
         return "/user_form.xhtml?faces-redirect=true";
     }
 
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return users;
     }
 
-    public String editUser(User user) {
-        this.user = user;
+    public String editUser(UserDto userDto) {
+        this.user = userDto;
         return "/user_form.xhtml?faces-redirect=true";
     }
 
-    public void deleteUser(User user) {
-        userRepository.deleteById(user.getId());
+    public void deleteUser(UserDto userDto) {
+        userService.deleteById(userDto.getId());
     }
 
     public String saveUser() {
-        userRepository.saveOrUpdate(user);
+        userService.saveOrUpdate(user);
         return "/user.xhtml?faces-redirect=true";
     }
 }

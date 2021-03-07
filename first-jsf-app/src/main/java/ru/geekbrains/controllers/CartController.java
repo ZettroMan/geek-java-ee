@@ -1,35 +1,35 @@
 package ru.geekbrains.controllers;
 
-import ru.geekbrains.persist.Product;
+import ru.geekbrains.dto.ProductDto;
+import ru.geekbrains.services.CartService;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Named
 @SessionScoped
 public class CartController implements Serializable {
 
-    private final Map<Long, Product> cart = new HashMap<>();
+    @EJB
+    private CartService cartService;
 
-    public List<Product> getProductsInCart() {
-        return new ArrayList<>(cart.values());
+    public List<ProductDto> getProductsInCart() {
+        return cartService.getProductsInCart();
     }
 
-    public void addToCart(Product product) {
-        cart.put(product.getId(), product);
+    public void addToCart(ProductDto productDto) {
+        cartService.addToCart(productDto);
     }
 
-    public void removeFromCart(Product product) {
-        cart.remove(product.getId());
+    public void removeFromCart(ProductDto productDto) {
+        cartService.removeFromCart(productDto);
     }
 
     public int getSize() {
-        return cart.size();
+        return cartService.getSize();
     }
 
 }

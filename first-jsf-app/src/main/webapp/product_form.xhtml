@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <label>Category </label>
                         <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"
-                                            value="#{productController.product.category.id}">
+                                            value="#{productController.product.categoryId}">
                             <f:selectItems value="#{categoryController.allCategories}"  var="cat"
                                            itemValue="#{cat.id}"  itemLabel="#{cat.name}"
                                            itemLabelEscaped="true"/>
