@@ -15,6 +15,7 @@ public class EjbClient {
         String jndiServiceName = "ejb:/first-jsf-app/ProductServiceImpl!ru.geekbrains.services.ProductServiceRemote";
         ProductServiceRemote productService = (ProductServiceRemote) context.lookup(jndiServiceName);
 
+//        System.out.println(productService.countAll());
         productService.findAll()
                 .forEach(prod -> System.out.println(prod.getId() + "\t" + prod.getName() + "\t" + prod.getPrice()));
     }

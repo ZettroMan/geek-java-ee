@@ -57,15 +57,15 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Actions</f:facet>
-                            <pp:commandButton styleClass="btn btn-success"
+                            <pp:commandButton styleClass="btn btn-success" type="submit"
                                               icon="fas fa-edit"
                                               action="#{productController.editProduct(product)}"/>
-                            <pp:commandButton styleClass="btn btn-danger"
+                            <pp:commandButton styleClass="btn btn-danger" type="button"
                                               icon="far fa-trash-alt"
                                               action="#{productController.deleteProduct(product)}">
                                 <f:ajax event="click" render="productForm"/>
                             </pp:commandButton>
-                            <pp:commandButton styleClass="btn btn-success"
+                            <pp:commandButton styleClass="btn btn-success" type="button"
                                               icon="fas fa-cart-plus"
                                               action="#{cartController.addToCart(product)}">
                                 <f:ajax event="click" render="navForm"/>

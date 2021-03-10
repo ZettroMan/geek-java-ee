@@ -5,11 +5,12 @@ import lombok.NoArgsConstructor;
 import ru.geekbrains.persist.Category;
 import ru.geekbrains.persist.Product;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class ProductDto {
+public class ProductDto implements Serializable {
 
     private Long id;
     private String name;

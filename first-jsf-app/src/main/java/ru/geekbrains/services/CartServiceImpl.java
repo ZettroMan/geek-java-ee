@@ -3,14 +3,14 @@ package ru.geekbrains.services;
 
 import ru.geekbrains.dto.ProductDto;
 
-import javax.ejb.Stateful;
+import javax.ejb.Singleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Stateful
-public class CartServiceImpl implements CartService {
+@Singleton
+public class CartServiceImpl implements CartService, CartServiceRemote {
 
     private final Map<Long, ProductDto> cart = new HashMap<>();
 
