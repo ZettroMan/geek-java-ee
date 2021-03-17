@@ -1,0 +1,38 @@
+GET http://localhost:8080/first-jsf-app/api/v1/product
+
+###
+
+GET http://localhost:8080/first-jsf-app/api/v1/product/6
+
+###
+
+POST http://localhost:8080/first-jsf-app/api/v1/product
+Content-Type: application/json
+
+{
+  "categoryId": 2,
+  "categoryName": "Notebooks",
+  "description": "Notebook from REST",
+  "name": "REST Nimbus 3000",
+  "price": 5555.55
+}
+
+###
+
+PUT http://localhost:8080/first-jsf-app/api/v1/product
+Content-Type: application/json
+
+{
+  "categoryId": 2,
+  "categoryName": "Notebooks",
+  "description": "Notebook from REST",
+  "id": 6,
+  "name": "REST Nimbus 3000 Limited",
+  "price": 5555.55
+}
+
+###
+
+DELETE http://localhost:8080/first-jsf-app/api/v1/product
+
+4
