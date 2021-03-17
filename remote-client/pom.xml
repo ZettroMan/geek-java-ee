@@ -34,9 +34,8 @@
 
         <dependency>
             <groupId>ru.geekbrains</groupId>
-            <artifactId>first-jsf-app</artifactId>
+            <artifactId>remote-services-api</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <classifier>classes</classifier>
         </dependency>
 
     </dependencies>

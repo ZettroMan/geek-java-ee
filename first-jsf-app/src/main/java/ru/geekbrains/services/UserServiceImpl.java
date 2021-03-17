@@ -7,12 +7,14 @@ import ru.geekbrains.persist.User;
 import ru.geekbrains.persist.UserRepository;
 
 import javax.ejb.EJB;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
+@Remote(UserServiceRemote.class)
 public class UserServiceImpl implements UserService, UserServiceRemote {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -22,14 +24,15 @@ public class UserServiceImpl implements UserService, UserServiceRemote {
 
     @Override
     public List<UserDto> findAll() {
-        return userRepository.findAll().stream().map(UserDto::new).collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .map(this::buildUserDto).collect(Collectors.toList());
     }
 
     @Override
     public UserDto findById(Long id) {
         User user = userRepository.findById(id);
         if(user == null) return null;
-        return new UserDto(user);
+        return buildUserDto(user);
     }
 
     @Override
@@ -47,6 +50,14 @@ public class UserServiceImpl implements UserService, UserServiceRemote {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public UserDto buildUserDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setSurname(user.getSurname());
+        return userDto;
     }
 
 
