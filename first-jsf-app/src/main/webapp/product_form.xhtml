@@ -1,8 +1,9 @@
 <html lang="en"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+>
 
 <h:head>
     <!-- Required meta tags -->
@@ -47,11 +48,13 @@
                     </div>
                     <div class="form-group">
                         <label>Category </label>
-                        <h:selectOneMenu value="#{productController.product.category.id}">
-<!--                            <f:selectItem itemLabel="#{productController.product.category.name}" itemValue="#{productController.product.category.id}"/>-->
-                            <f:selectItems value="#{categoryController.allCategories}" var="c"
-                                           itemLabel="#{c.name}" itemValue="#{c.id}"/>
-                        </h:selectOneMenu>
+                        <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"
+                                            value="#{productController.product.categoryId}">
+                            <f:selectItems value="#{categoryController.allCategories}"  var="cat"
+                                           itemValue="#{cat.id}"  itemLabel="#{cat.name}"
+                                           itemLabelEscaped="true"/>
+
+                        </h:selectOneListbox>
                     </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary"
                                      action="#{productController.saveProduct()}"/>

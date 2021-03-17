@@ -4,6 +4,7 @@ package ru.geekbrains.persist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.geekbrains.dto.UserDto;
 
 import javax.persistence.*;
 
@@ -28,5 +29,9 @@ public class User {
 
     @Column
     private String surname;
+
+    public User(UserDto userDto) {
+        this(userDto.getId(), userDto.getName(), userDto.getSurname());
+    }
 
 }
