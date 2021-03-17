@@ -40,11 +40,11 @@ public class ProductRepository {
     }
 
     public Product findByName(String name) {
-        return entityManager.createNamedQuery("findByName", Product.class).setParameter("name", name).getSingleResult();
+        return entityManager.createNamedQuery("findProductByName", Product.class).setParameter("name", name).getSingleResult();
     }
 
     public List<Product> findAllByCategory(Long categoryId) {
-        return entityManager.createNamedQuery("findByCategory", Product.class).setParameter("category_id", categoryId).getResultList();
+        return entityManager.createNamedQuery("findProductByCategory", Product.class).setParameter("category_id", categoryId).getResultList();
     }
 
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.geekbrains.dto.UserDto;
 import ru.geekbrains.persist.User;
 import ru.geekbrains.persist.UserRepository;
+import ru.geekbrains.rest.UserServiceRest;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 @Remote(UserServiceRemote.class)
-public class UserServiceImpl implements UserService, UserServiceRemote {
+public class UserServiceImpl implements UserService, UserServiceRemote, UserServiceRest {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -36,8 +37,31 @@ public class UserServiceImpl implements UserService, UserServiceRemote {
     }
 
     @Override
+    public UserDto findByName(String name) {
+        User user = userRepository.findByName(name);
+        if(user == null) return null;
+        return buildUserDto(user);
+    }
+
+    @Override
     public Long countAll() {
         return userRepository.countAll();
+    }
+
+    @Override
+    public void insert(UserDto userDto) {
+        if(userDto.getId() != null) {
+            throw new IllegalArgumentException();
+        }
+        saveOrUpdate(userDto);
+    }
+
+    @Override
+    public void update(UserDto userDto) {
+        if(userDto.getId() == null) {
+            throw new IllegalArgumentException();
+        }
+        saveOrUpdate(userDto);
     }
 
     @TransactionAttribute
