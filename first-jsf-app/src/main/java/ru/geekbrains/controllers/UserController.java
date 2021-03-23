@@ -6,6 +6,7 @@ import ru.geekbrains.services.UserService;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -26,9 +27,9 @@ public class UserController implements Serializable {
         users = userService.findAll();
     }
 
-//    public void preloadData(ComponentSystemEvent componentSystemEvent) {
-//        init();
-//    }
+    public void preloadData(ComponentSystemEvent componentSystemEvent) {
+        init();
+    }
 
     public UserDto getUser() {
         return user;

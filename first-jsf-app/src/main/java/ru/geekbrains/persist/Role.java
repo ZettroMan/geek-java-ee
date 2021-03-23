@@ -7,7 +7,6 @@ import ru.geekbrains.dto.RoleDto;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -24,8 +23,8 @@ public class Role implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private Set<User> users;
 
     public Role(@NotNull String name) {
         this.name = name;

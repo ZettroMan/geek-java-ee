@@ -7,9 +7,6 @@ import ru.geekbrains.dto.UserDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -33,15 +30,15 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+//    @ManyToMany(cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE
+//    })
+//    @JoinTable(name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
+//    private Set<Role> roles;
 
     public User(Long id, String login, String password) {
         this.id = id;
@@ -51,8 +48,8 @@ public class User implements Serializable {
 
     public User(UserDto userDto) {
         this(userDto.getId(), userDto.getLogin(), userDto.getPassword());
-        this.roles = new HashSet<>();
-        roles.addAll(userDto.getRoles().stream().map(Role::new).collect(Collectors.toList()));
+//        this.roles = new HashSet<>();
+//        roles.addAll(userDto.getRoles().stream().map(Role::new).collect(Collectors.toList()));
     }
 
 }

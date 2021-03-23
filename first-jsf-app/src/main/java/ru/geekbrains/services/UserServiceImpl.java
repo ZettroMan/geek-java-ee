@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService, UserServiceRemote, UserServ
         userDto.setId(user.getId());
         userDto.setLogin(user.getLogin());
         userDto.setPassword(user.getPassword());
-        user.getRoles().forEach(role -> userDto.addRole(roleService.buildRoleDto(role)));
+//        user.getRoles().forEach(role -> userDto.addRole(roleService.buildRoleDto(role)));
         return userDto;
     }
 
