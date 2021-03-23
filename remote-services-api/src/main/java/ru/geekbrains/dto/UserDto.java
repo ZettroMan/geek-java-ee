@@ -13,10 +13,7 @@ public class UserDto implements Serializable {
     private String login;
     private String password;
 
-//    private Set<RoleDto> roles;
-//
-//    public void addRole(RoleDto roleDto){
-//        roles.add(roleDto);
-//    }
+    //TODO
+//    private List<RoleDto> roles;
 
 }

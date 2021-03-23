@@ -11,19 +11,21 @@ import java.io.Serializable;
 @Entity
 @Table(name = "roles")
 @Data
+@NamedQueries({
+        @NamedQuery(name = "deleteRoleById", query = "delete from Role r where r.id = :id"),
+})
 @NoArgsConstructor
 public class Role implements Serializable {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @NotNull
     @Column(name = "name")
     private String name;
 
-//    @ManyToMany(mappedBy = "roles")
+    //TODO
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 //    private Set<User> users;
 
     public Role(@NotNull String name) {

@@ -30,6 +30,7 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    //TODO
 //    @ManyToMany(cascade = {
 //            CascadeType.PERSIST,
 //            CascadeType.MERGE
@@ -48,6 +49,7 @@ public class User implements Serializable {
 
     public User(UserDto userDto) {
         this(userDto.getId(), userDto.getLogin(), userDto.getPassword());
+        //TODO
 //        this.roles = new HashSet<>();
 //        roles.addAll(userDto.getRoles().stream().map(Role::new).collect(Collectors.toList()));
     }

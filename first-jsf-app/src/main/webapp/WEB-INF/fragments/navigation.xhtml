@@ -28,7 +28,7 @@
                     <h:link value="Users" outcome="/admin/user" styleClass="nav-link"/>
                 </li>
                 <li style="display: #{request.isUserInRole('ADMIN') ? 'block' : 'none'}" class="nav-item #{pageName == 'Role' ? 'active' : ''}">
-                    <h:link value="Role" outcome="/admin/role" styleClass="nav-link"/>
+                    <h:link value="Roles" outcome="/admin/role" styleClass="nav-link"/>
                 </li>
                 <li class="nav-item">
                     <h:form rendered="#{request.userPrincipal != null}">
