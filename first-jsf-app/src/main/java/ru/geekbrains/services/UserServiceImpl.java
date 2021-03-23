@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService, UserServiceRemote, UserServ
     @EJB
     private UserRepository userRepository;
 
+    @EJB
+    private RoleService roleService;
+
     @Override
     public List<UserDto> findAll() {
         return userRepository.findAll().stream()
@@ -79,8 +82,9 @@ public class UserServiceImpl implements UserService, UserServiceRemote, UserServ
     public UserDto buildUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setSurname(user.getSurname());
+        userDto.setLogin(user.getLogin());
+        userDto.setPassword(user.getPassword());
+        user.getRoles().forEach(role -> userDto.addRole(roleService.buildRoleDto(role)));
         return userDto;
     }
 
